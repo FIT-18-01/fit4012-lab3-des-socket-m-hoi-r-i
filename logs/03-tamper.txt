@@ -1,0 +1,3 @@
+Tamper test: modify last byte of ciphertext.
+Result: decrypted plaintext = b'Test message for tampe\x00\x00\x00\x00\x00\x00\x00' (garbled due to tampering)
+Conclusion: plaintext differs after tampering.

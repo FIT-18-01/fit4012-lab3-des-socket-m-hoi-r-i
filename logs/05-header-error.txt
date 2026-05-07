@@ -1,0 +1,2 @@
+Header error test: parse invalid header length.
+Caught exception: ValueError: Header phải dài đúng 20 byte (8 key + 8 IV + 4 length).

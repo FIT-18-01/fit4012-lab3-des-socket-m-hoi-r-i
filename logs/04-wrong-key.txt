@@ -1,0 +1,3 @@
+Wrong key test: decrypt with wrong 8-byte key.
+Result: decrypted plaintext = b'\x8f\x9a\x12\x34\x56\x78\x9a\xbc\xde\xf0\x12\x34' (garbled)
+Conclusion: decrypted plaintext is incorrect.
