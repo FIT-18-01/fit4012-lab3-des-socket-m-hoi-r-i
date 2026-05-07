@@ -19,6 +19,7 @@ def test_local_sender_receiver_roundtrip():
     receiver_env = os.environ.copy()
     receiver_env.update({
         "PYTHONUNBUFFERED": "1",
+        "PYTHONIOENCODING": "utf-8",
         "RECEIVER_HOST": "127.0.0.1",
         "RECEIVER_PORT": str(port),
         "SOCKET_TIMEOUT": "5",
@@ -26,6 +27,7 @@ def test_local_sender_receiver_roundtrip():
     sender_env = os.environ.copy()
     sender_env.update({
         "PYTHONUNBUFFERED": "1",
+        "PYTHONIOENCODING": "utf-8",
         "SERVER_IP": "127.0.0.1",
         "SERVER_PORT": str(port),
         "MESSAGE": "Xin chao FIT4012 - local integration test",
@@ -38,6 +40,8 @@ def test_local_sender_receiver_roundtrip():
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
+        encoding="utf-8",
+        errors="replace",
     )
 
     try:
@@ -48,7 +52,7 @@ def test_local_sender_receiver_roundtrip():
             line = receiver.stdout.readline()
             if line:
                 collected.append(line)
-                if "Đang lắng nghe" in line:
+                if "Đang lắng nghe" in line or "Listening on" in line:
                     started = True
                     break
         assert started, "Receiver không khởi động đúng. Output: " + "".join(collected)
@@ -59,6 +63,8 @@ def test_local_sender_receiver_roundtrip():
             env=sender_env,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=10,
             check=True,
         )
